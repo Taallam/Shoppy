@@ -10,6 +10,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Hello from Monaim</h1>
+      <h1>hello from zakariae </h1>
     </div>
   )
 }
