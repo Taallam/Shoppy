@@ -21,8 +21,6 @@ const Home: NextPage = () => {
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac
           sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.
-          Quisque ornare mauris ut blandit lobortis. Nulla at vulputate sem.
-          Vivamus ullamcorper sed enim eget tincidunt. Aliquam blandit condimentum
           gravida. Etiam maximus metus vel euismod tincidunt.
         </Product>
         <Product

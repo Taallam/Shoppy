@@ -8,6 +8,7 @@ export const HomeHeader = () => {
         <SearchInput type="text" />
         <SearchButton>Search</SearchButton>
       </div>
+      <div>Life is good</div>
       <div/>
     </HeaderContainer>
   )
