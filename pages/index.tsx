@@ -22,6 +22,7 @@ const Home: NextPage = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac
           sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.
           gravida. Etiam maximus metus vel euismod tincidunt.
+          Helllolsdfosoo
         </Product>
         <Product
           productPrice="$12"
