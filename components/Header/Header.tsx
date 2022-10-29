@@ -1,14 +1,25 @@
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
-export const HomeHeader = () => {
+export const HomeHeader = (props) => {
   return (
     <HeaderContainer>
       <Logo>Shoppy</Logo>
-      <div>
-        <SearchInput type="text" />
-        <SearchButton>Search</SearchButton>
-      </div>
-      <div/>
+      <SearchItemsContainer>
+        <div>
+          <SearchInput
+            type="text"
+            onChange={(event) => props.setSearchTerm(event.target.value)}
+          />
+          <SearchButton>Search</SearchButton>
+        </div>
+        {props.searchTerm !== '' && (
+          <SearchingForText>
+            You are searching for: {props.searchTerm}
+          </SearchingForText>
+        )}
+      </SearchItemsContainer>
+      <div />
     </HeaderContainer>
   )
 }
@@ -17,19 +28,19 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   padding: 10px 6px;
 `
 
 const Logo = styled.h2`
-  color: #6B0B3D;
+  color: #6b0b3d;
   padding: 4px;
   margin: 0px;
   font-size: 20px;
 `
 
 const SearchInput = styled.input`
-  background: #BDBDBD;
+  background: #bdbdbd;
   border: none;
   padding: 8px;
   outline: none;
@@ -45,7 +56,7 @@ const SearchInput = styled.input`
 `
 
 const SearchButton = styled.button`
-  background-color: #6B0B3D;
+  background-color: #6b0b3d;
   color: #fff;
   padding: 8px;
   border: none;
@@ -56,4 +67,15 @@ const SearchButton = styled.button`
   margin: 0px;
   font-size: 14px;
   height: 100%;
+`
+
+const SearchItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const SearchingForText = styled.p`
+  font-size: 12px;
+  font-style: italic;
+  margin: 5px 0 0 0;
 `
