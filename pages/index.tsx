@@ -1,10 +1,14 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import { HomeHeader } from '../components/Header/Header'
-import { Product } from '../components/Product'
-import styled from '@emotion/styled'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { HomeHeader } from "../components/Header/Header";
+import { Product } from "../components/Product";
+import styled from "@emotion/styled";
+import '../components/Header/Header';
+import React, { useState } from "react";
+
 
 const Home: NextPage = () => {
+  const [search, setFilter] = useState('')
   return (
     <div>
       <Head>
@@ -13,44 +17,76 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeHeader />
+      <div>
       <ProductsContainer>
-        <Product
-          productPrice="$10"
-          productName="Kit-Kat"
-          productImage="https://picsum.photos/300/200?random=1"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac
-          sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.
-          Quisque ornare mauris ut blandit lobortis. Nulla at vulputate sem.
-          Vivamus ullamcorper sed enim eget tincidunt. Aliquam blandit condimentum
-          gravida. Etiam maximus metus vel euismod tincidunt.
-        </Product>
-        <Product
-          productPrice="$12"
-          productName="Coca-Cola"
-          productImage="https://picsum.photos/300/200?random=2"
-
-        >
-          This is coca cola
-        </Product>
-        <Product
-          productPrice="$100"
-          productName="CousCous"
-          productImage="https://picsum.photos/300/200?random=3"
-        />
-        <Product
-          productPrice="$99"
-          productName="Iphone"
-          productImage="https://picsum.photos/300/200?random=4"
-        />
+        {listOfProduct.filter((value)=> {
+          if (search === "") {
+            return value
+          }else if (value.productName.toLowerCase().includes(search.toLowerCase())) {
+            return value
+          }
+        }).map((item, index) => {
+          return (
+            <Product Key={index} productPrice={item.productPrice} productName={item.productName} productImage={item.productImage}>
+              {item.children}
+            </Product>
+          );
+        })}
       </ProductsContainer>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 const ProductsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-`
+  max-width: 1300px;
+  margin: 0 auto;
+`;
+const listOfProduct = [
+  {
+    Key: 1,
+    productPrice: "1$",
+    productName: "nokia",
+    productImage: "https://picsum.photos/300/200?random=1",
+    children: "this is my product #1 ...",
+  },
+  {
+    Key: 2,
+    productPrice: "23$",
+    productName: "somsung",
+    productImage: "https://picsum.photos/300/200?random=2",
+    children: "this is my product #2 ...",
+  },
+  {
+    Key: 3,
+    productPrice: "83$",
+    productName: "nike",
+    productImage: "https://picsum.photos/300/200?random=3",
+    children: "this is my product #3 ...",
+  },
+  {
+    Key: 4,
+    productPrice: "28$",
+    productName: "c90",
+    productImage: "https://picsum.photos/300/200?random=4",
+    children: "this is my product #4 ...",
+  },
+  {
+    Key: 5,
+    productPrice: "536$",
+    productName: "Dasia",
+    productImage: "https://picsum.photos/300/200?random=5",
+    children: "this is my product #5 ...",
+  },
+  {
+    Key: 6,
+    productPrice: "23$",
+    productName: "",
+    productImage: "https://picsum.photos/300/200?random=6",
+    children: "this is my product #6 ...",
+  },
+];
 
-export default Home
+export default Home;

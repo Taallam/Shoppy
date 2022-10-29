@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 export function Product(props) {
+  
   return (
     <ProductContainer>
       <ProductImage src={props.productImage} />
@@ -15,17 +16,18 @@ export function Product(props) {
 }
 
 const ProductContainer = styled.div`
-  display: grid;
+  display: grid ;
   grid-template-columns: 50% 50%;
   grid-template-rows: 170px 1fr 5fr;
   background-color: #fff;
-  padding: 24px;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px #a1a1a1;
   width: 300px;
   height: 380px;
-  margin: 16px;
+  margin: 20px auto;
   color: #424242;
+
 `
 const ProductImage = styled.img`
   grid-column: 1 / 3;
@@ -52,3 +54,4 @@ const ProductDescription = styled.p`
 `
 
 // components
+

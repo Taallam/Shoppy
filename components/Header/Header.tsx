@@ -1,35 +1,49 @@
-import styled from '@emotion/styled'
+import React, {useState}  from "react";
+import styled from "@emotion/styled";
+
 
 export const HomeHeader = () => {
+  const [search, setFilter] = useState('')
+  const searchText = (event) => {
+    setFilter(event.target.value);
+  }
+  
   return (
     <HeaderContainer>
       <Logo>Shoppy</Logo>
       <div>
-        <SearchInput type="text" />
+        <SearchInput 
+        value={search}
+        onChange={searchText}
+        type="text" />
         <SearchButton>Search</SearchButton>
       </div>
-      <div/>
+      <br />
+      <p>you search for: {search}</p>
+      <div />
     </HeaderContainer>
-  )
-}
+  );
+};
+
+export default HomeHeader;
 
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   padding: 10px 6px;
-`
+`;
 
 const Logo = styled.h2`
-  color: #6B0B3D;
+  color: #850045;
   padding: 4px;
   margin: 0px;
   font-size: 20px;
-`
+`;
 
 const SearchInput = styled.input`
-  background: #BDBDBD;
+  background: #bdbdbd;
   border: none;
   padding: 8px;
   outline: none;
@@ -42,10 +56,10 @@ const SearchInput = styled.input`
   height: 100%;
   font-size: 14px;
   min-width: 300px;
-`
+`;
 
 const SearchButton = styled.button`
-  background-color: #6B0B3D;
+  background-color: #00641e;
   color: #fff;
   padding: 8px;
   border: none;
@@ -56,4 +70,4 @@ const SearchButton = styled.button`
   margin: 0px;
   font-size: 14px;
   height: 100%;
-`
+`;
