@@ -1,5 +1,14 @@
-import React from 'react'
+import React, {Dispatch, SetStateAction} from 'react'
 import styled from '@emotion/styled'
+
+type AdvancedFiltersProps = {
+  visible: boolean,
+  priceFrom: String,
+  priceTo: String,
+  setAdvancedFiltersVisibility: Dispatch<SetStateAction<boolean>>,
+  setPriceFrom: Dispatch<SetStateAction<string>>,
+  setPriceTo: Dispatch<SetStateAction<string>>,
+}
 
 function AdvancedFilters({
   visible,
@@ -8,7 +17,7 @@ function AdvancedFilters({
   priceTo,
   setPriceFrom,
   setPriceTo,
-}) {
+} : AdvancedFiltersProps) {
 
   if (!visible) return <div />
 
