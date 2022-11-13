@@ -1,39 +1,56 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-function AdvancedFilters({ visible, setAdvancedFiltersVisibility }) {
+function AdvancedFilters({
+  visible,
+  setAdvancedFiltersVisibility,
+  priceFrom,
+  priceTo,
+  setPriceFrom,
+  setPriceTo,
+}) {
 
   if (!visible) return <div />
+
+  const resetFilters = () => {
+    setPriceFrom("")
+    setPriceTo("")
+    setAdvancedFiltersVisibility(false)
+  }
 
   return (
     <Wrapper>
       <div>
         <h3>Advanced filters</h3>
         <InputsWrapper>
-          <PriceTitle>
-            Price
-          </PriceTitle>
+          <PriceTitle>Price</PriceTitle>
           <label>
             from
-            <input type="number" />
+            <input
+              type="number"
+              value={priceFrom}
+              onChange={(e) => setPriceFrom(e.target.value)}
+            />
           </label>
           <label>
             to
-            <input type="number" />
+            <input
+              type="number"
+              value={priceTo}
+              onChange={(e) => setPriceTo(e.target.value)}
+            />
           </label>
-          <label>
-            <input type="checkbox" />
-            Use from
-          </label>
-          <label>
-            <input type="checkbox" />
-            Use to
-          </label>
+          <button onClick={() => setPriceFrom("") }>Clear filter</button>
+          <button onClick={() => setPriceTo("")}>Clear filter</button>
         </InputsWrapper>
       </div>
       <ButtonsContainer>
-        <button onClick={() => setAdvancedFiltersVisibility(false)}>Use filters</button>
-        <button onClick={() => setAdvancedFiltersVisibility(false)}>Reset</button>
+        <button onClick={() => setAdvancedFiltersVisibility(false)}>
+          Use filters
+        </button>
+        <button onClick={resetFilters}>
+          Reset
+        </button>
       </ButtonsContainer>
     </Wrapper>
   )
@@ -50,7 +67,7 @@ const Wrapper = styled.div`
 const PriceTitle = styled.h4`
   grid-column: 1 / 3;
   margin: none;
-  border-bottom-color: #D6E4E5;
+  border-bottom-color: #d6e4e5;
   border-bottom-style: solid;
   border-bottom-width: 1px;
 `

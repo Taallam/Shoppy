@@ -12,6 +12,8 @@ const Home: NextPage = () => {
   const [advancedFiltersVisibility, setAdvancedFiltersVisibility] = useState(
     false,
   )
+  const [filterPriceFrom, setFilterPriceFrom] = useState('')
+  const [filterPriceTo, setFilterPriceTo] = useState('')
 
   useEffect(() => {
     const newProducts = listOfProducts.filter((product) =>
@@ -19,6 +21,27 @@ const Home: NextPage = () => {
     )
     setProducts(newProducts)
   }, [searchTerm])
+
+  useEffect(() => {
+    const newProducts = listOfProducts.filter((product) => {
+      // If both filters are empty, returns true -> show the product
+      const productPrice = parseInt(product.productPrice.slice(1))
+      const priceTo = parseInt(filterPriceTo)
+      const priceFrom = parseInt(filterPriceFrom)
+
+      if (filterPriceFrom === "" && filterPriceTo === "") {
+        return true
+      } else if (filterPriceFrom === "") {
+        return productPrice <= priceTo 
+      } else if(filterPriceTo === "") {
+        return priceFrom <= productPrice 
+      } else {
+        return priceFrom <= productPrice && productPrice <= priceTo 
+      }
+    })
+
+    setProducts(newProducts)
+  }, [filterPriceFrom, filterPriceTo])
 
   return (
     <div>
@@ -48,6 +71,10 @@ const Home: NextPage = () => {
         <AdvancedFilters
           visible={advancedFiltersVisibility}
           setAdvancedFiltersVisibility={setAdvancedFiltersVisibility}
+          priceFrom={filterPriceFrom}
+          priceTo={filterPriceTo}
+          setPriceFrom={setFilterPriceFrom}
+          setPriceTo={setFilterPriceTo}
         />
       </IndexContents>
     </div>
