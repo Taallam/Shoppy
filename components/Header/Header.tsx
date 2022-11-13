@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
-export const HomeHeader = (props) => {
+export const HomeHeader = ({
+  setSearchTerm,
+  searchTerm,
+  setAdvancedFiltersVisibility,
+}) => {
   return (
     <HeaderContainer>
       <Logo>Shoppy</Logo>
@@ -9,17 +13,17 @@ export const HomeHeader = (props) => {
         <div>
           <SearchInput
             type="text"
-            onChange={(event) => props.setSearchTerm(event.target.value)}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
           <SearchButton>Search</SearchButton>
         </div>
-        {props.searchTerm !== '' && (
+        {searchTerm !== '' && (
           <SearchingForText>
-            You are searching for: {props.searchTerm}
+            You are searching for: {searchTerm}
           </SearchingForText>
         )}
       </SearchItemsContainer>
-      <div />
+      <button onClick={e => setAdvancedFiltersVisibility(true) }>Filters</button>
     </HeaderContainer>
   )
 }
