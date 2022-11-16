@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
 export const HomeHeader = ({
   setSearchTerm,
@@ -10,7 +11,7 @@ export const HomeHeader = ({
 }) => {
   return (
     <HeaderContainer>
-      <Logo>Shoppy</Logo>
+      <Link href='/'><Logo>Shoppy</Logo></Link>
       {shouldSearch &&
       <SearchItemsContainer>
         <div>
@@ -48,6 +49,7 @@ const Logo = styled.h2`
   padding: 4px;
   margin: 0px;
   font-size: 20px;
+  cursor: pointer;
 `
 
 const SearchInput = styled.input`
