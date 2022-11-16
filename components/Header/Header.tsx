@@ -5,10 +5,13 @@ export const HomeHeader = ({
   setSearchTerm,
   searchTerm,
   setAdvancedFiltersVisibility,
+  shouldSearch,
+  shouldFilter
 }) => {
   return (
     <HeaderContainer>
       <Logo>Shoppy</Logo>
+      {shouldSearch &&
       <SearchItemsContainer>
         <div>
           <SearchInput
@@ -23,7 +26,11 @@ export const HomeHeader = ({
           </SearchingForText>
         )}
       </SearchItemsContainer>
+      }
+      {shouldFilter &&
       <button onClick={e => setAdvancedFiltersVisibility(true) }>Filters</button>
+      }
+    
     </HeaderContainer>
   )
 }

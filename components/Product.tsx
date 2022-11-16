@@ -29,6 +29,7 @@ const ProductContainer = styled.div`
   height: 380px;
   margin: 16px;
   color: #424242;
+  cursor: pointer;
 `
 const ProductImage = styled.img`
   grid-column: 1 / 3;
