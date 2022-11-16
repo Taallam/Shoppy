@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
 export function Product(props) {
   return (
+   <Link href={`details/${props.id}`}>
     <ProductContainer>
       <ProductImage src={props.productImage} />
       <ProductName>{props.productName}</ProductName>
@@ -11,6 +13,7 @@ export function Product(props) {
         {props.children}
       </ProductDescription>
     </ProductContainer>
+    </Link>
   )
 }
 

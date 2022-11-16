@@ -5,6 +5,7 @@ import { Product } from '../components/Product'
 import styled from '@emotion/styled'
 import { useState, useEffect } from 'react'
 import AdvancedFilters from '../components/AdvancedFilters'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const newProducts = listOfProducts.filter((product) =>
-      product.productName.includes(searchTerm),
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase()),
     )
     setProducts(newProducts)
   }, [searchTerm])
@@ -59,7 +60,8 @@ const Home: NextPage = () => {
         <ProductsContainer>
           {products.map((product) => (
             <Product
-              key={product.key}
+              key={product.id}
+              id={product.id}
               productPrice={product.productPrice}
               productName={product.productName}
               productImage={product.productImage}
@@ -93,7 +95,7 @@ const IndexContents = styled.div`
 
 const listOfProducts = [
   {
-    key: '1',
+    id: '1',
     productPrice: '$10',
     productName: 'Kit-Kat',
     productImage: 'https://picsum.photos/300/200?random=1',
@@ -101,7 +103,7 @@ const listOfProducts = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac',
   },
   {
-    key: '2',
+    id: '2',
     productPrice: '$23',
     productName: 'Coca-cola',
     productImage: 'https://picsum.photos/300/200?random=2',
@@ -109,7 +111,7 @@ const listOfProducts = [
       'sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.',
   },
   {
-    key: '3',
+    id: '3',
     productPrice: '$99',
     productName: 'Noodles',
     productImage: 'https://picsum.photos/300/200?random=3',
@@ -117,7 +119,7 @@ const listOfProducts = [
       'Vivamus ullamcorper sed enim eget tincidunt. Aliquam blandit condimentum',
   },
   {
-    key: '4',
+    id: '4',
     productPrice: '$30',
     productName: 'Chips',
     productImage: 'https://picsum.photos/300/200?random=4',
