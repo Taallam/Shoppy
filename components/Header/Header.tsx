@@ -1,48 +1,44 @@
-import React, { useState } from 'react'
-import styled from '@emotion/styled'
-import Link from 'next/link'
+import React, { useState } from "react";
+import styled from "@emotion/styled";
+import Link from "next/link";
 
-export const HomeHeader = ({
-  setSearchTerm,
-  searchTerm,
-  setAdvancedFiltersVisibility,
-  shouldSearch,
-  shouldFilter
-}) => {
+export const HomeHeader = ({ setSearchTerm, searchTerm, setAdvancedFiltersVisibility, shouldSearch, shouldFilter, quantity, shouldCard }) => {
   return (
     <HeaderContainer>
-      <Link href='/'><Logo>Shoppy</Logo></Link>
-      {shouldSearch &&
-      <SearchItemsContainer>
-        <div>
-          <SearchInput
-            type="text"
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-          <SearchButton>Search</SearchButton>
-        </div>
-        {searchTerm !== '' && (
-          <SearchingForText>
-            You are searching for: {searchTerm}
-          </SearchingForText>
-        )}
-      </SearchItemsContainer>
-      }
-      {shouldFilter &&
-      <button onClick={e => setAdvancedFiltersVisibility(true) }>Filters</button>
-      }
-    
+      <Link href="/">
+        <Logo>Shoppy</Logo>
+      </Link>
+      {shouldSearch && (
+        <SearchItemsContainer>
+          <div>
+            <SearchInput type="text" onChange={(event) => setSearchTerm(event.target.value)} />
+            <SearchButton>Search</SearchButton>
+          </div>
+          {searchTerm !== "" && <SearchingForText>You are searching for: {searchTerm}</SearchingForText>}
+        </SearchItemsContainer>
+      )}
+      {shouldFilter && <button onClick={(e) => setAdvancedFiltersVisibility(true)}>Filters</button>}
+      {shouldCard && <Button>{quantity}</Button>}
     </HeaderContainer>
-  )
-}
-
+  );
+};
+const Button = styled.button`
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: #f10000;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+`;
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #eeeeee;
   padding: 10px 6px;
-`
+`;
 
 const Logo = styled.h2`
   color: #6b0b3d;
@@ -50,7 +46,7 @@ const Logo = styled.h2`
   margin: 0px;
   font-size: 20px;
   cursor: pointer;
-`
+`;
 
 const SearchInput = styled.input`
   background: #bdbdbd;
@@ -66,7 +62,7 @@ const SearchInput = styled.input`
   height: 100%;
   font-size: 14px;
   min-width: 300px;
-`
+`;
 
 const SearchButton = styled.button`
   background-color: #6b0b3d;
@@ -80,15 +76,15 @@ const SearchButton = styled.button`
   margin: 0px;
   font-size: 14px;
   height: 100%;
-`
+`;
 
 const SearchItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const SearchingForText = styled.p`
   font-size: 12px;
   font-style: italic;
   margin: 5px 0 0 0;
-`
+`;
