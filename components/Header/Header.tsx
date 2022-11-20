@@ -1,8 +1,32 @@
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import Link from "next/link";
+import React, { useEffect, useState } from 'react'
+import styled from '@emotion/styled'
+import Link from 'next/link'
 
-export const HomeHeader = ({ setSearchTerm, searchTerm, setAdvancedFiltersVisibility, shouldSearch, shouldFilter, quantity, shouldCard }) => {
+export const HomeHeader = ({
+  setSearchTerm,
+  searchTerm,
+  setAdvancedFiltersVisibility,
+  shouldSearch,
+  shouldFilter,
+  quantity,
+}) => {
+  const [cartCount, setCartCount] = useState(0)
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/cart')
+      .then((resp) => resp.json())
+      .then((cartItems) => {
+        // let totalQuantity = 0
+        // for (let cartItem of cartItems) {
+        //   totalQuantity += cartItem.quantity
+        // }
+        const totalQuantity = cartItems
+          .map(cartItem => cartItem.quantity) // [2,3,4]
+          .reduce((acc, quantity) => acc + quantity)
+        setCartCount(totalQuantity)
+      })
+  }, [])
+
   return (
     <HeaderContainer>
       <Link href="/">
@@ -11,17 +35,29 @@ export const HomeHeader = ({ setSearchTerm, searchTerm, setAdvancedFiltersVisibi
       {shouldSearch && (
         <SearchItemsContainer>
           <div>
-            <SearchInput type="text" onChange={(event) => setSearchTerm(event.target.value)} />
+            <SearchInput
+              type="text"
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
             <SearchButton>Search</SearchButton>
+            {shouldFilter && (
+              <button onClick={(e) => setAdvancedFiltersVisibility(true)}>
+                Filters
+              </button>
+            )}
           </div>
-          {searchTerm !== "" && <SearchingForText>You are searching for: {searchTerm}</SearchingForText>}
+          {searchTerm !== '' && (
+            <SearchingForText>
+              You are searching for: {searchTerm}
+            </SearchingForText>
+          )}
         </SearchItemsContainer>
       )}
-      {shouldFilter && <button onClick={(e) => setAdvancedFiltersVisibility(true)}>Filters</button>}
-      {shouldCard && <Button>{quantity}</Button>}
+      {/* {shouldCard && <Button>{quantity}</Button>} */}
+      <div>{cartCount}</div>
     </HeaderContainer>
-  );
-};
+  )
+}
 const Button = styled.button`
   width: 30px;
   height: 30px;
@@ -31,14 +67,14 @@ const Button = styled.button`
   color: white;
   font-weight: bold;
   border-radius: 5px;
-`;
+`
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #eeeeee;
   padding: 10px 6px;
-`;
+`
 
 const Logo = styled.h2`
   color: #6b0b3d;
@@ -46,7 +82,7 @@ const Logo = styled.h2`
   margin: 0px;
   font-size: 20px;
   cursor: pointer;
-`;
+`
 
 const SearchInput = styled.input`
   background: #bdbdbd;
@@ -62,7 +98,7 @@ const SearchInput = styled.input`
   height: 100%;
   font-size: 14px;
   min-width: 300px;
-`;
+`
 
 const SearchButton = styled.button`
   background-color: #6b0b3d;
@@ -76,15 +112,15 @@ const SearchButton = styled.button`
   margin: 0px;
   font-size: 14px;
   height: 100%;
-`;
+`
 
 const SearchItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const SearchingForText = styled.p`
   font-size: 12px;
   font-style: italic;
   margin: 5px 0 0 0;
-`;
+`

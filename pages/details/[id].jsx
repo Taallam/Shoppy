@@ -55,7 +55,7 @@ export const Deatils = () => {
   };
   return (
     <div>
-      <HomeHeader shouldSearch={false} shouldFilter={false} quantity={quantity} shouldCard={true} />
+      <HomeHeader shouldSearch={false} shouldFilter={false} quantity={quantity}/>
       <Details
         list={list}
         handleClick={handleClick}
