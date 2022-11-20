@@ -9,15 +9,23 @@ import Link from "next/link";
 
 const Home: NextPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [products, setProducts] = useState(listOfProducts);
+  const [listOfProducts, setListOfProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [advancedFiltersVisibility, setAdvancedFiltersVisibility] = useState(false);
   const [filterPriceFrom, setFilterPriceFrom] = useState("");
   const [filterPriceTo, setFilterPriceTo] = useState("");
 
   useEffect(() => {
+    // The code here will run only ONCE
+    fetch("http://localhost:3000/api/products")
+      .then(result => result.json())
+      .then(jsonData => setListOfProducts(jsonData))
+  }, [])
+
+  useEffect(() => {
     const newProducts = listOfProducts.filter((product) => product.productName.toLowerCase().includes(searchTerm.toLowerCase()));
     setProducts(newProducts);
-  }, [searchTerm]);
+  }, [searchTerm, listOfProducts]);
 
   useEffect(() => {
     const newProducts = listOfProducts.filter((product) => {
@@ -38,7 +46,7 @@ const Home: NextPage = () => {
     });
 
     setProducts(newProducts);
-  }, [filterPriceFrom, filterPriceTo]);
+  }, [filterPriceFrom, filterPriceTo, listOfProducts]);
 
   return (
     <div>
@@ -78,36 +86,5 @@ const IndexContents = styled.div`
   display: grid;
   grid-template-columns: 1fr 320px;
 `;
-
-const listOfProducts = [
-  {
-    id: "1",
-    productPrice: "$10",
-    productName: "Kit-Kat",
-    productImage: "https://picsum.photos/300/200?random=1",
-    productDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac",
-  },
-  {
-    id: "2",
-    productPrice: "$23",
-    productName: "Coca-cola",
-    productImage: "https://picsum.photos/300/200?random=2",
-    productDescription: "sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.",
-  },
-  {
-    id: "3",
-    productPrice: "$99",
-    productName: "Noodles",
-    productImage: "https://picsum.photos/300/200?random=3",
-    productDescription: "Vivamus ullamcorper sed enim eget tincidunt. Aliquam blandit condimentum",
-  },
-  {
-    id: "4",
-    productPrice: "$30",
-    productName: "Chips",
-    productImage: "https://picsum.photos/300/200?random=4",
-    productDescription: "This is a good chips",
-  },
-];
 
 export default Home;
