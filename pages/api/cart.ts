@@ -6,7 +6,7 @@ type CartItem = {
   quantity: number
 }
 
-type Cart = CartItem[]
+export type Cart = CartItem[]
 
 export default function handler(
   req: NextApiRequest,
@@ -16,4 +16,4 @@ export default function handler(
 }
 
 
-let cart : Cart  = [{ productId: "1", quantity: 5 }, { productId: "2", quantity: 2 }]
+export let cart : Cart  = [{ productId: "1", quantity: 5 }, { productId: "2", quantity: 2 }]

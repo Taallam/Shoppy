@@ -3,73 +3,50 @@ import React, { useState, useEffect } from "react";
 import { Details } from "../../components/Details";
 import { HomeHeader } from "../../components/Header/Header";
 
-const listOfProducts = [
-  {
-    id: "1",
-    productPrice: "$10",
-    productName: "Kit-Kat",
-    productImageOne: "https://picsum.photos/300/200?random=1",
-    productImageTow: "https://picsum.photos/300/200?random=1.1",
-    productImageTree: "https://picsum.photos/300/200?random=1.2",
-    productDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac",
-  },
-  {
-    id: "2",
-    productPrice: "$23",
-    productName: "Coca-cola",
-    productImageOne: "https://picsum.photos/300/200?random=2",
-    productImageTow: "https://picsum.photos/300/200?random=2.1",
-    productImageTree: "https://picsum.photos/300/200?random=2.2",
-    productDescription: "sagittis urna. Nulla eu orci placerat, congue magna eu, egestas purus.",
-  },
-  {
-    id: "3",
-    productPrice: "$99",
-    productName: "Noodles",
-    productImageOne: "https://picsum.photos/300/200?random=3",
-    productImageTow: "https://picsum.photos/300/200?random=3.1",
-    productImageTree: "https://picsum.photos/300/200?random=3.2",
-    productDescription: "Vivamus ullamcorper sed enim eget tincidunt. Aliquam blandit condimentum",
-  },
-  {
-    id: "4",
-    productPrice: "$30",
-    productName: "Chips",
-    productImageOne: "https://picsum.photos/300/200?random=4",
-    productImageTow: "https://picsum.photos/300/200?random=4.1",
-    productImageTree: "https://picsum.photos/300/200?random=4.2",
-    productDescription: "This is a good chips",
-  },
-];
-
-export const Deatils = () => {
+export const ProductDetails = () => {
+  // http://localhost:3000/details/2 => id is 2
   const {
     query: { id },
   } = useRouter();
-  const list = listOfProducts.find((product) => product.id == id);
+
+  let [product, setProduct] = useState({})
+
+  useEffect(() => {
+    // Get a single product
+    if (id) {
+      fetch(`http://localhost:3000/api/product/${id}`)
+        .then(resp => resp.json())
+        .then(product => setProduct(product))
+        .catch(error => console.error("The server returned an error!!!"))
+    }
+  }, [id])
+
   const [cart, setCart] = useState([]);
   const [quantity, setquantity] = useState(0);
-  const handleClick = (list) => {
-    cart.push(list);
-    quantity = cart.length;
+  const handleClick = () => {
+    fetch(`http://localhost:3000/api/cart/add`, {
+      method: "POST",
+      body: JSON.stringify({
+        productId: id,
+        quantity: 1
+      })
+    })
   };
   return (
     <div>
       <HomeHeader shouldSearch={false} shouldFilter={false} quantity={quantity}/>
       <Details
-        list={list}
+        // list={list}
         handleClick={handleClick}
-        key={list.id}
-        productName={list.productName}
-        productImageTree={list.productImageTree}
-        productImageTow={list.productImageTow}
-        productImageOne={list.productImageOne}
-        productPrice={list.productPrice}
+        key={product.id}
+        productName={product.productName}
+        productImage={product.productImage}
+        productPrice={product.productPrice}
       >
-        {list.productDescription}
+        {product.productDescription}
       </Details>
     </div>
   );
 };
 
-export default Deatils;
+export default ProductDetails;

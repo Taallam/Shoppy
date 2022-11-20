@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Product = {
+export type Product = {
   id: string,
   productPrice: string,
   productName: string,
@@ -18,7 +18,7 @@ export default function handler(
   res.status(200).json(listOfProducts)
 }
 
-const listOfProducts = [
+export const listOfProducts = [
   {
     id: "1",
     productPrice: "$15",
