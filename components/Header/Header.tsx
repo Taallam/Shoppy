@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from '@emotion/styled'
 import Link from 'next/link'
+import CartContext from '../../contexts/cart'
 
 export const HomeHeader = ({
   setSearchTerm,
@@ -11,21 +12,15 @@ export const HomeHeader = ({
   quantity,
 }) => {
   const [cartCount, setCartCount] = useState(0)
+  const [cart, setCart] = useContext(CartContext)
+  console.log(cart)
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/cart')
-      .then((resp) => resp.json())
-      .then((cartItems) => {
-        // let totalQuantity = 0
-        // for (let cartItem of cartItems) {
-        //   totalQuantity += cartItem.quantity
-        // }
-        const totalQuantity = cartItems
-          .map(cartItem => cartItem.quantity) // [2,3,4]
-          .reduce((acc, quantity) => acc + quantity)
-        setCartCount(totalQuantity)
-      })
-  }, [])
+    const totalQuantity = cart.cartItems
+      .map(cartItem => cartItem.quantity) // [2,3,4]
+      .reduce((acc, quantity) => acc + quantity, 0)
+    setCartCount(totalQuantity)
+  }, [cart])
 
   return (
     <HeaderContainer>
