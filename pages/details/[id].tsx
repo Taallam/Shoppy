@@ -4,6 +4,7 @@ import { json } from "stream/consumers";
 import { Details } from "../../components/Details";
 import { HomeHeader } from "../../components/Header/Header";
 import CartContext from '../../contexts/cart'
+import { CartTuple } from "../../contexts/cart"
 
 export const ProductDetails = () => {
   // http://localhost:3000/details/2 => id is 2
@@ -11,8 +12,9 @@ export const ProductDetails = () => {
     query: { id },
   } = useRouter();
 
-  const [cart, addItemToCart] = useContext(CartContext)
+  const [cart, addItemToCart] = useContext<CartTuple>(CartContext)
   let [product, setProduct] = useState({})
+  const [quantity, setquantity] = useState(0);
 
   useEffect(() => {
     // Get a single product
@@ -24,19 +26,19 @@ export const ProductDetails = () => {
     }
   }, [id])
 
-  // const [cart, setCart] = useState([]);
-  const [quantity, setquantity] = useState(0);
   
   return (
     <div>
       <HomeHeader shouldSearch={false} shouldFilter={false} quantity={quantity}/>
       <Details
         // list={list}
-        handleClick={() => addItemToCart({ productId: product.id, quantity: 1 })}
+        addToCart={() => addItemToCart({ productId: product.id, quantity })}
         key={product.id}
         productName={product.productName}
         productImage={product.productImage}
-        productPrice={product.productPrice}
+        productPrice={product.productPrice ? parseInt(product.productPrice.substring(1)) : 0}
+        productQuantity={quantity}
+        setProductQuantity={setquantity}
         >
         {product.productDescription}
       <h1>{JSON.stringify(cart)}</h1>
