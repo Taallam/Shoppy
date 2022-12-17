@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 type CartItem = {
   productId: string,
-  quantity: number
+  quantity: number,
+  productName: string
+  productImage: string
+  productPrice: string
 }
 
 export type Cart = CartItem[]
@@ -16,4 +19,4 @@ export default function handler(
 }
 
 
-export let cart : Cart  = [{ productId: "1", quantity: 5 }, { productId: "2", quantity: 2 }]
+export let cart : Cart  = []

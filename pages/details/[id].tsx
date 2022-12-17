@@ -1,10 +1,11 @@
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import React, { useState, useEffect, useContext } from "react";
 import { json } from "stream/consumers";
 import { Details } from "../../components/Details";
 import { HomeHeader } from "../../components/Header/Header";
 import CartContext from '../../contexts/cart'
 import { CartTuple } from "../../contexts/cart"
+
 
 export const ProductDetails = () => {
   // http://localhost:3000/details/2 => id is 2
@@ -15,6 +16,7 @@ export const ProductDetails = () => {
   const [cart, addItemToCart] = useContext<CartTuple>(CartContext)
   let [product, setProduct] = useState({})
   const [quantity, setquantity] = useState(0);
+  let [productName, setProductName] = useState('')
 
   useEffect(() => {
     // Get a single product
@@ -32,7 +34,7 @@ export const ProductDetails = () => {
       <HomeHeader shouldSearch={false} shouldFilter={false} quantity={quantity}/>
       <Details
         // list={list}
-        addToCart={() => addItemToCart({ productId: product.id, quantity })}
+        addToCart={() => addItemToCart({ productId: product.id, quantity, productName: product.productName, productImage: product.productImage, productPrice: product.productPrice})}
         key={product.id}
         productName={product.productName}
         productImage={product.productImage}
