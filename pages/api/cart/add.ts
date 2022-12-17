@@ -7,10 +7,10 @@ export default function handler(
   res: NextApiResponse<Cart>
 ) {
   if (req.method === "POST") {
-    const { productId, quantity } = JSON.parse(req.body)
+    const { productId, quantity , productName, productImage, productPrice} = JSON.parse(req.body)
     // Check if the productId already exists in the cart
     // Don't add it or increase the quantity
-    cart.push({ productId, quantity })
+    cart.push({ productId, quantity , productName , productImage, productPrice})
 
     // Return errors
     res.status(200).json(cart)

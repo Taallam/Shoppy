@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
 type DetailsProps = {
   productImage: string
@@ -32,7 +33,7 @@ export function Details(props: DetailsProps) {
           ></QuantityInput>
         </label>
         <ProductButton>
-          <Button onClick={props.addToCart}>+ Add to cart</Button>
+          <Link href={'/cart-list/cart'}><Button onClick={props.addToCart}>+ Add to cart</Button></Link>
         </ProductButton>
         <Warning>
           You will buy {props.productQuantity} items with a total of ${props.productQuantity * props.productPrice}

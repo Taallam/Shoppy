@@ -7,7 +7,10 @@ type CartProviderProps = {
 
 type CartItem = {
   productId: string,
-  quantity: number
+  quantity: number,
+  productName: string
+  productImage: string
+  productPrice: string
 }
 
 type Cart = { cartItems: CartItem[] }
@@ -27,10 +30,10 @@ export const CartProvider = ({ children } : CartProviderProps) => {
       })
   }, [])
 
-  const addItemToCart = ({ productId, quantity } : CartItem) => {
+  const addItemToCart = ({ productId, quantity, productName, productImage, productPrice} : CartItem) => {
     fetch(`http://localhost:3000/api/cart/add`, {
       method: "POST",
-      body: JSON.stringify({ productId, quantity })
+      body: JSON.stringify({ productId, quantity, productName, productImage, productPrice})
     })
       .then(response => response.json())
       .then(cartItems => setCart({ cartItems }))
